@@ -1,6 +1,6 @@
 {
   "name": "znotify",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "sdk for znotify",
   "license": "GPL-3.0",
   "main": "dist/index.js",
@@ -8,7 +8,7 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "webpack",
-    "prepare": "rimraf dist && yarn build"
+    "prepublish": "rimraf dist && yarn build"
   },
   "author": {
     "name": "Zxilly",
