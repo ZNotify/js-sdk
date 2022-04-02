@@ -17,7 +17,7 @@ export class Client {
 
     private async check(): Promise<void> {
         const resp = await axios.get(`${this.endpoint}/${this.user_id}/check`)
-        if (!(resp.data === "true")) {
+        if (!(resp.data === true)) {
             throw new Error("User ID not valid");
         }
     }
