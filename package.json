@@ -1,0 +1,14 @@
+{
+  "name": "znotify",
+  "version": "0.0.1",
+  "description": "sdk for znotify",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "typescript": "^4.6.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZNotify/js-sdk.git"
+  },
+  "packageManager": "yarn@3.2.0"
+}
