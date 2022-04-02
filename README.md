@@ -1,5 +1,7 @@
 # notify-js-sdk
 
+Send notifications to [Notify](https://github.com/znotify/Notify)
+
 ## Installation
 
 ```bash
