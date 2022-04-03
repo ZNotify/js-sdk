@@ -1,18 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "module": "ESNext",
-    "outDir": "./dist/",
-    "declaration": true,
-    "declarationMap": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
+    "target": "ES6",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
     "strict": true,
-    "skipLibCheck": true,
-    "moduleResolution": "Node"
+    "strictPropertyInitialization": false,
+    "declaration": true,
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

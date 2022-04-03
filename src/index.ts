@@ -1,5 +1,5 @@
 import {send} from "./send";
 
-export {Client} from './client';
+export * from './client';
 export {send};
 export default send;
