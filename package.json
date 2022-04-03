@@ -10,7 +10,7 @@
     "build": "rimraf lib && run-p build:*",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc -p tsconfig.esm.json",
-    "prepublish": "yarn build"
+    "prepublish": "run-p build"
   },
   "author": {
     "name": "Zxilly",
