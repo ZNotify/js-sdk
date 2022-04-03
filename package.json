@@ -7,10 +7,11 @@
   "typings": "lib/cjs/index.d.ts",
   "module": "lib/esm/index.js",
   "scripts": {
-    "build": "rimraf lib && run-p build:*",
+    "build": "run-p 'build:*'",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc -p tsconfig.esm.json",
-    "prepublish": "run-p build"
+    "clean": "rimraf lib",
+    "prepublish": "run-s clean build"
   },
   "author": {
     "name": "Zxilly",
