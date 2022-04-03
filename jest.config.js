@@ -2,5 +2,6 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testRegex: "(/tests/.*|(\\.|/)(test|spec))\\.ts$"
+  testRegex: "(/tests/.*|(\\.|/)(test|spec))\\.ts$",
+  testTimeout: 30000,
 };
