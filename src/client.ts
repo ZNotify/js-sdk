@@ -1,6 +1,15 @@
 import axios from "axios";
 import {stringify} from 'qs';
 
+export type ClientResponse = {
+    id: string,
+    user_id: string,
+    title: string,
+    content: string,
+    long: string,
+    created_at: string,
+}
+
 export class Client {
     private readonly endpoint: string;
     private readonly user_id: string;
@@ -23,10 +32,10 @@ export class Client {
         }
     }
 
-    public async send(content: string): Promise<string>
-    public async send(content: string, title: string): Promise<string>
-    public async send(content: string, title: string, long: string): Promise<string>
-    public async send(content: string, title?: string, long?: string): Promise<string> {
+    public async send(content: string): Promise<ClientResponse>
+    public async send(content: string, title: string): Promise<ClientResponse>
+    public async send(content: string, title: string, long: string): Promise<ClientResponse>
+    public async send(content: string, title?: string, long?: string): Promise<ClientResponse> {
         if (content === undefined || content === null || content === "") {
             throw new Error("Content is required");
         }
@@ -39,7 +48,7 @@ export class Client {
             content: content,
             long: long ? long : ""
         })
-        const resp = await axios.post(`${this.endpoint}/${this.user_id}/send`, data, {
+        const resp = await axios.post<ClientResponse>(`${this.endpoint}/${this.user_id}/send`, data, {
             params,
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"

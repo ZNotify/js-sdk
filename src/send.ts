@@ -1,9 +1,9 @@
-import {Client} from "./client";
+import {Client, ClientResponse} from "./client";
 
-export async function send(user_id: string, content: string): Promise<string>
-export async function send(user_id: string, content: string, title: string): Promise<string>
-export async function send(user_id: string, content: string, title: string, long: string): Promise<string>
-export async function send(user_id: string, content: string, title?: string, long?: string): Promise<string> {
+export async function send(user_id: string, content: string): Promise<ClientResponse>
+export async function send(user_id: string, content: string, title: string): Promise<ClientResponse>
+export async function send(user_id: string, content: string, title: string, long: string): Promise<ClientResponse>
+export async function send(user_id: string, content: string, title?: string, long?: string): Promise<ClientResponse> {
     const client = await Client.create(user_id);
     if (title) {
         if (long) {
