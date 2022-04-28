@@ -13,7 +13,8 @@
     "clean": "rimraf lib",
     "prepublish": "run-s clean build",
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "release": "yarn npm publish"
   },
   "author": {
     "name": "Zxilly",
