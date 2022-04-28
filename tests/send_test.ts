@@ -1,7 +1,7 @@
 import {send} from "../src";
 
 test("send create failed", async () => {
-    await expect(send("error", "")).rejects.toThrowError("User ID not valid");
+    await expect(send("error", "fake")).rejects.toThrowError("User ID not valid");
 });
 
 test("send 0", async () => {
@@ -26,6 +26,19 @@ test("send 2", async () => {
 
 test("send 3", async () => {
     expect(await send("zxilly", "content", "title", "long")).toStrictEqual({
+        content: "content",
+        long: "long",
+        title: "title"
+    });
+});
+
+test("send with option", async () => {
+    expect(await send({
+        user_id: "zxilly",
+        content: "content",
+        long: "long",
+        title: "title"
+    })).toStrictEqual({
         content: "content",
         long: "long",
         title: "title"

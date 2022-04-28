@@ -1,5 +1,6 @@
 import axios from "axios";
 import {stringify} from 'qs';
+import {Message} from "./entity";
 
 export type ClientResponse = {
     id: string,
@@ -32,12 +33,14 @@ export class Client {
         }
     }
 
-    public async send(content: string): Promise<ClientResponse>
-    public async send(content: string, title: string): Promise<ClientResponse>
-    public async send(content: string, title: string, long: string): Promise<ClientResponse>
-    public async send(content: string, title?: string, long?: string): Promise<ClientResponse> {
-        if (content === undefined || content === null || content === "") {
+    public async send(option: Message): Promise<ClientResponse>
+    public async send(content: string, title?: string, long?: string): Promise<ClientResponse>
+    public async send(contentOrOption: string | Message, title?: string | undefined, long?: string | undefined): Promise<ClientResponse> {
+        if (contentOrOption === undefined || contentOrOption === null || contentOrOption === "") {
             throw new Error("Content is required");
+        }
+        if (!(typeof contentOrOption === "string")) {
+            return this.send(contentOrOption.content, contentOrOption.title, contentOrOption.long);
         }
         const params: any = {}
         if (process.env.NODE_ENV === "test") {
@@ -45,7 +48,7 @@ export class Client {
         }
         const data = stringify({
             title: title ? title : "Notification",
-            content: content,
+            content: contentOrOption,
             long: long ? long : ""
         })
         const resp = await axios.post<ClientResponse>(`${this.endpoint}/${this.user_id}/send`, data, {

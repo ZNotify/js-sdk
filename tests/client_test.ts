@@ -39,3 +39,16 @@ test("client send 3", async () => {
         title: "title"
     });
 });
+
+test("client send with option", async () => {
+    const client = await Client.create("zxilly");
+    expect(await client.send({
+        content: "content",
+        long: "long",
+        title: "title"
+    })).toStrictEqual({
+        content: "content",
+        long: "long",
+        title: "title"
+    });
+});
