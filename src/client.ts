@@ -15,7 +15,7 @@ export class Client {
     private readonly endpoint: string;
     private readonly user_id: string;
 
-    constructor(user_id: string, endpoint?: string) {
+    private constructor(user_id: string, endpoint?: string) {
         this.endpoint = endpoint ? endpoint : "https://push.learningman.top";
         this.user_id = user_id;
     }
@@ -26,7 +26,7 @@ export class Client {
         return client;
     }
 
-    private async check(): Promise<void> {
+    public async check(): Promise<void> {
         const resp = await axios.get(`${this.endpoint}/${this.user_id}/check`)
         if (!(resp.data === true)) {
             throw new Error("User ID not valid");
@@ -58,5 +58,9 @@ export class Client {
             }
         })
         return resp.data;
+    }
+
+    public async delete(id: string): Promise<void> {
+        await axios.delete(`${this.endpoint}/${this.user_id}/${id}`)
     }
 }
