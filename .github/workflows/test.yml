@@ -16,6 +16,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          repository: 'ZNotify/js-sdk'
 
       - uses: ZNotify/test-action@master
 
