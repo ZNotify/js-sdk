@@ -11,17 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [ 12.x, 14.x, 16.x, 18.x ]
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        lfs: true
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-    - run: yarn install
-    - run: yarn test
-    - run: yarn coverage
+      - uses: actions/checkout@v3
+
+      - uses: ZNotify/test-action@master
+        with:
+          mode: sdk
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+      - run: yarn install
+      - run: yarn test
+      - run: yarn coverage
