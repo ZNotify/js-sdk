@@ -16,15 +16,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: ZNotify/test-action@master
-        if: github.event_name == 'pull_request' || github.event_name == 'push'
-        with:
-          mode: sdk
 
       - uses: ZNotify/test-action@master
-        if: github.event_name == 'workflow_call'
-        with:
-          mode: server
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
