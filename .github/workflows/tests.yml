@@ -5,6 +5,7 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_call:
 
 jobs:
   build:
@@ -15,16 +16,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
       - uses: ZNotify/test-action@master
+        if: github.event_name == 'pull_request' || github.event_name == 'push'
         with:
           mode: sdk
+
+      - uses: ZNotify/test-action@master
+        if: github.event_name == 'workflow_call'
+        with:
+          mode: server
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'yarn'
+
       - run: yarn install
       - run: yarn test
       - run: yarn coverage
