@@ -1,7 +1,10 @@
 import {Client} from "../src";
+import {checkTestServer} from "./utils";
+
+beforeAll(checkTestServer);
 
 test("client create", async () => {
-    expect(await Client.create("zxilly")).toBeInstanceOf(Client);
+    expect(await Client.create("test")).toBeInstanceOf(Client);
 });
 
 test("client create failed", async () => {
@@ -9,46 +12,50 @@ test("client create failed", async () => {
 });
 
 test("client send 0", async () => {
-    const client = await Client.create("zxilly");
+    const client = await Client.create("test");
     await expect(client.send("")).rejects.toThrowError("Content is required");
 });
 
 test("client send 1", async () => {
-    const client = await Client.create("zxilly");
-    expect(await client.send("test")).toStrictEqual({
+    const client = await Client.create("test");
+    expect(await client.send("test")).toMatchObject({
         content: "test",
         long: "",
-        title: "Notification"
+        title: "Notification",
+        user_id: "test"
     });
 });
 
 test("client send 2", async () => {
-    const client = await Client.create("zxilly");
-    expect(await client.send("content", "title")).toStrictEqual({
+    const client = await Client.create("test");
+    expect(await client.send("content", "title")).toMatchObject({
         content: "content",
         long: "",
-        title: "title"
+        title: "title",
+        user_id: "test"
     });
 });
 
 test("client send 3", async () => {
-    const client = await Client.create("zxilly");
-    expect(await client.send("content", "title", "long")).toStrictEqual({
+    const client = await Client.create("test");
+    expect(await client.send("content", "title", "long")).toMatchObject({
         content: "content",
         long: "long",
-        title: "title"
+        title: "title",
+        user_id: "test"
     });
 });
 
 test("client send with option", async () => {
-    const client = await Client.create("zxilly");
+    const client = await Client.create("test");
     expect(await client.send({
         content: "content",
         long: "long",
         title: "title"
-    })).toStrictEqual({
+    })).toMatchObject({
         content: "content",
         long: "long",
-        title: "title"
+        title: "title",
+        user_id: "test"
     });
 });

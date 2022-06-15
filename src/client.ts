@@ -1,6 +1,7 @@
 import axios from "axios";
 import {stringify} from 'qs';
 import {Message} from "./entity";
+import {ENDPOINT} from "./utils";
 
 export type ClientResponse = {
     id: string,
@@ -16,7 +17,7 @@ export class Client {
     private readonly user_id: string;
 
     private constructor(user_id: string, endpoint?: string) {
-        this.endpoint = endpoint ? endpoint : "https://push.learningman.top";
+        this.endpoint = endpoint ? endpoint : ENDPOINT;
         this.user_id = user_id;
     }
 
@@ -27,7 +28,11 @@ export class Client {
     }
 
     public async check(): Promise<void> {
-        const resp = await axios.get(`${this.endpoint}/${this.user_id}/check`)
+        const resp = await axios.get(`${this.endpoint}/check`, {
+            params: {
+                user_id: this.user_id
+            }
+        })
         if (!(resp.data === true)) {
             throw new Error("User ID not valid");
         }
@@ -42,17 +47,12 @@ export class Client {
         if (!(typeof contentOrOption === "string")) {
             return this.send(contentOrOption.content, contentOrOption.title, contentOrOption.long);
         }
-        const params: any = {}
-        if (process.env.NODE_ENV === "test") {
-            params["dry"] = true;
-        }
         const data = stringify({
             title: title ? title : "Notification",
             content: contentOrOption,
             long: long ? long : ""
         })
         const resp = await axios.post<ClientResponse>(`${this.endpoint}/${this.user_id}/send`, data, {
-            params,
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             }

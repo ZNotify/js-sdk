@@ -4,4 +4,7 @@ module.exports = {
   testEnvironment: 'node',
   testRegex: "(/tests/.*|(\\.|/)(test|spec))\\.ts$",
   testTimeout: 30000,
+  modulePathIgnorePatterns: [
+      "/tests/utils.ts"
+  ]
 };

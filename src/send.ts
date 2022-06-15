@@ -13,6 +13,4 @@ export async function send(userIDOrOption: string | Send, content?: string, titl
         const client = await Client.create(userIDOrOption);
         return client.send(content, title, long);
     }
-
-
 }
