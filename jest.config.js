@@ -5,6 +5,7 @@ module.exports = {
   testRegex: "(/tests/.*|(\\.|/)(test|spec))\\.ts$",
   testTimeout: 30000,
   modulePathIgnorePatterns: [
-      "/tests/utils.ts"
-  ]
+      "/tests/setup.ts"
+  ],
+  globalSetup: './tests/setup.ts',
 };

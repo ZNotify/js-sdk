@@ -1,7 +1,4 @@
 import {send} from "../src";
-import {checkTestServer} from "./utils";
-
-beforeAll(checkTestServer);
 
 test("send create failed", async () => {
     await expect(send("error", "fake")).rejects.toThrowError("User ID not valid");

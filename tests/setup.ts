@@ -1,9 +1,11 @@
 import axios from "axios";
 import {ENDPOINT} from "../src/utils";
 
-export async function checkTestServer() {
-    const resp = await axios.get(`${ENDPOINT}/alive`)
-    if (!(resp.status === 204)) {
+export default async function checkTestServer() {
+    try {
+        await axios.get(`${ENDPOINT}/alive`)
+    } catch (e) {
         throw new Error("Test server is not running");
     }
+
 }

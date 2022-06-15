@@ -1,7 +1,4 @@
 import {Client} from "../src";
-import {checkTestServer} from "./utils";
-
-beforeAll(checkTestServer);
 
 test("client create", async () => {
     expect(await Client.create("test")).toBeInstanceOf(Client);
