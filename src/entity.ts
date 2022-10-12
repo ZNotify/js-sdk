@@ -1,4 +1,4 @@
-export class Message {
+export type MessageOptions = {
     // The message to send.
     content: string;
 
@@ -9,7 +9,27 @@ export class Message {
     long?: string;
 }
 
-export class Send extends Message {
+export type SendOptions = MessageOptions & {
     // The user-id of the user to send the message to.
     user_id: string;
 }
+
+export type ClientResponse<T> = {
+    code: number
+    body: T
+}
+
+export type Message = {
+    id: string,
+    user_id: string,
+    title: string,
+    content: string,
+    long: string,
+    created_at: string,
+}
+
+export const Channels = {
+    WebPush: "WebPush"
+} as const;
+
+export type ChannelType = typeof Channels[keyof typeof Channels];

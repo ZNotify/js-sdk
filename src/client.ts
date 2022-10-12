@@ -1,16 +1,7 @@
 import axios from "axios";
 import {stringify} from 'qs';
-import {Message} from "./entity";
-import {ENDPOINT} from "./utils";
-
-export type ClientResponse = {
-    id: string,
-    user_id: string,
-    title: string,
-    content: string,
-    long: string,
-    created_at: string,
-}
+import {Channels, ChannelType, ClientResponse, Message, MessageOptions} from "./entity";
+import {ENDPOINT, isUUID} from "./utils";
 
 export class Client {
     private readonly endpoint: string;
@@ -28,19 +19,19 @@ export class Client {
     }
 
     public async check(): Promise<void> {
-        const resp = await axios.get(`${this.endpoint}/check`, {
+        const resp = await axios.get<ClientResponse<boolean>>(`${this.endpoint}/check`, {
             params: {
                 user_id: this.user_id
             }
         })
-        if (!(resp.data === true)) {
+        if (!(resp.data.body)) {
             throw new Error("User ID not valid");
         }
     }
 
-    public async send(option: Message): Promise<ClientResponse>
-    public async send(content: string, title?: string, long?: string): Promise<ClientResponse>
-    public async send(contentOrOption: string | Message, title?: string | undefined, long?: string | undefined): Promise<ClientResponse> {
+    public async send(option: MessageOptions): Promise<Message>
+    public async send(content: string, title?: string, long?: string): Promise<Message>
+    public async send(contentOrOption: string | MessageOptions, title?: string | undefined, long?: string | undefined): Promise<Message> {
         if (contentOrOption === undefined || contentOrOption === null || contentOrOption === "") {
             throw new Error("Content is required");
         }
@@ -52,15 +43,42 @@ export class Client {
             content: contentOrOption,
             long: long ? long : ""
         })
-        const resp = await axios.post<ClientResponse>(`${this.endpoint}/${this.user_id}/send`, data, {
+        const resp = await axios.post<ClientResponse<Message | string>>(`${this.endpoint}/${this.user_id}/send`, data, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
         })
-        return resp.data;
+        if (resp.data.code !== 200 || resp.status !== 200) {
+            throw new Error(resp.data.body as string);
+        }
+
+        return resp.data.body as Message;
     }
 
     public async delete(id: string): Promise<void> {
         await axios.delete(`${this.endpoint}/${this.user_id}/${id}`)
+    }
+
+    public async register(channel: ChannelType, token: string, deviceID: string): Promise<void> {
+        if (!isUUID(deviceID)) {
+            throw new Error("Device ID not valid, should be a UUID");
+        }
+
+        if (!(channel in Channels)) {
+            throw new Error(`Channel ${channel} is not valid`);
+        }
+
+        const data = stringify({
+            channel: channel,
+            token: token,
+        })
+        const resp = await axios.put<ClientResponse<boolean | string>>(`${this.endpoint}/${this.user_id}/token/${deviceID}`, data, {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        })
+        if (resp.data.code !== 200 || resp.status !== 200) {
+            throw new Error(resp.data.body as string);
+        }
     }
 }

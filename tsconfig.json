@@ -4,10 +4,10 @@
     "module": "CommonJS",
     "moduleResolution": "Node",
     "strict": true,
-    "strictPropertyInitialization": false,
+    "strictPropertyInitialization": true,
     "declaration": true,
-    "downlevelIteration": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
   },
   "include": ["src/**/*"]
 }

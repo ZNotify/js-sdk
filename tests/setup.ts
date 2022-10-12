@@ -1,11 +1,11 @@
-import axios from "axios";
+import a from "axios";
 import {ENDPOINT} from "../src/utils";
 
 export default async function checkTestServer() {
     try {
-        await axios.get(`${ENDPOINT}/alive`)
+        await a.get(`${ENDPOINT}/alive`)
     } catch (e) {
+        console.error(e);
         throw new Error("Test server is not running");
     }
-
 }
