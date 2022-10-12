@@ -1,8 +1,8 @@
 {
   "name": "znotify",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "sdk for znotify",
-  "license": "GPL-3.0",
+  "license": "Apache-2.0",
   "main": "lib/cjs/index.js",
   "typings": "lib/cjs/index.d.ts",
   "module": "lib/esm/index.js",
