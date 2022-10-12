@@ -1094,7 +1094,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:^29.1.2":
+"@types/jest@npm:29.1.2":
   version: 29.1.2
   resolution: "@types/jest@npm:29.1.2"
   dependencies:
@@ -1111,7 +1111,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.8.4":
+"@types/node@npm:18.8.4":
   version: 18.8.4
   resolution: "@types/node@npm:18.8.4"
   checksum: c2b87f6b0b1f02b2ce61ca7cb93ea287119bda086a3f33e48da8f5e70c24ad7141cc3465946e0e36abb7eba70c7b320c7659842096e4aa573b3a8d557322c818
@@ -1125,7 +1125,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/qs@npm:^6.9.7":
+"@types/qs@npm:6.9.7":
   version: 6.9.7
   resolution: "@types/qs@npm:6.9.7"
   checksum: 7fd6f9c25053e9b5bb6bc9f9f76c1d89e6c04f7707a7ba0e44cc01f17ef5284adb82f230f542c2d5557d69407c9a40f0f3515e8319afd14e1e16b5543ac6cdba
@@ -2938,7 +2938,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^29.1.2":
+"jest@npm:29.1.2":
   version: 29.1.2
   resolution: "jest@npm:29.1.2"
   dependencies:
@@ -3363,7 +3363,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-run-all@npm:^4.1.5":
+"npm-run-all@npm:4.1.5":
   version: 4.1.5
   resolution: "npm-run-all@npm:4.1.5"
   dependencies:
@@ -3750,7 +3750,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rimraf@npm:^3.0.2":
+"rimraf@npm:3.0.2, rimraf@npm:^3.0.2":
   version: 3.0.2
   resolution: "rimraf@npm:3.0.2"
   dependencies:
@@ -4211,7 +4211,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^29.0.3":
+"ts-jest@npm:29.0.3":
   version: 29.0.3
   resolution: "ts-jest@npm:29.0.3"
   dependencies:
@@ -4258,7 +4258,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.8.4":
+"typescript@npm:4.8.4":
   version: 4.8.4
   resolution: "typescript@npm:4.8.4"
   bin:
@@ -4268,7 +4268,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.8.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@4.8.4#~builtin<compat/typescript>":
   version: 4.8.4
   resolution: "typescript@patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"
   bin:
@@ -4478,15 +4478,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "znotify@workspace:."
   dependencies:
-    "@types/jest": ^29.1.2
-    "@types/node": ^18.8.4
-    "@types/qs": ^6.9.7
+    "@types/jest": 29.1.2
+    "@types/node": 18.8.4
+    "@types/qs": 6.9.7
     axios: ^1.1.2
-    jest: ^29.1.2
-    npm-run-all: ^4.1.5
+    jest: 29.1.2
+    npm-run-all: 4.1.5
     qs: ^6.11.0
-    rimraf: ^3.0.2
-    ts-jest: ^29.0.3
-    typescript: ^4.8.4
+    rimraf: 3.0.2
+    ts-jest: 29.0.3
+    typescript: 4.8.4
   languageName: unknown
   linkType: soft
