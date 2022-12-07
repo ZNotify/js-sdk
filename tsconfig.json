@@ -1,13 +1,19 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "CommonJS",
+    "target": "ES2021",
+    "module": "ESNext",
     "moduleResolution": "Node",
     "strict": true,
     "strictPropertyInitialization": true,
     "declaration": true,
+    "outDir": "dist/ts",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "removeComments": false,
+    "sourceMap": true
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src"
+  ]
 }

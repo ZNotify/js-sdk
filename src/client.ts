@@ -2,6 +2,7 @@ import axios, {AxiosInstance} from "axios";
 import {stringify} from 'qs';
 import {Channels, ChannelType, ClientResponse, Message, MessageOptions, Priority} from "./entity";
 import {ENDPOINT, isUUID} from "./utils";
+import {version} from "../package.json";
 
 export class Client {
     private readonly endpoint: string;
@@ -15,7 +16,7 @@ export class Client {
             baseURL: this.endpoint,
             timeout: 10000,
             headers: {
-                "User-Agent": "znotify-js-sdk/" + require("../package.json").version
+                "User-Agent": "znotify-js-sdk/" + version
             }
         })
     }
