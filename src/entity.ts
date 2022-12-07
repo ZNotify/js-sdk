@@ -7,6 +7,9 @@ export type MessageOptions = {
 
     // The long content of the message.
     long?: string;
+
+    // The priority of the message.
+    priority?: PriorityType;
 }
 
 export type SendOptions = MessageOptions & {
@@ -33,3 +36,11 @@ export const Channels = {
 } as const;
 
 export type ChannelType = typeof Channels[keyof typeof Channels];
+
+export const Priority = {
+    High: "high",
+    Normal: "normal",
+    Low: "low"
+} as const;
+
+export type PriorityType = typeof Priority[keyof typeof Priority];

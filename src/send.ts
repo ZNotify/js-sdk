@@ -1,5 +1,6 @@
 import {Client} from "./client";
 import type {Message, SendOptions} from "./entity";
+import {Priority} from "./entity";
 
 export async function send(option: SendOptions): Promise<Message>
 export async function send(user_id: string, content: string, title?: string, long?: string): Promise<Message>
@@ -11,6 +12,11 @@ export async function send(userIDOrOption: string | SendOptions, content?: strin
             throw new Error("Content is required");
         }
         const client = await Client.create(userIDOrOption);
-        return client.send(content, title, long);
+        return client.send({
+            content: content,
+            title: title,
+            long: long,
+            priority: Priority.Normal
+        });
     }
 }

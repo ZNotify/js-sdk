@@ -9,41 +9,6 @@ describe("Client Test", () => {
         await expect(Client.create("error")).rejects.toThrowError("User ID not valid");
     });
 
-    test("client send 0", async () => {
-        const client = await Client.create("test");
-        await expect(client.send("")).rejects.toThrowError("Content is required");
-    });
-
-    test("client send 1", async () => {
-        const client = await Client.create("test");
-        await expect(client.send("test")).resolves.toMatchObject({
-            content: "test",
-            long: "",
-            title: "Notification",
-            user_id: "test"
-        });
-    });
-
-    test("client send 2", async () => {
-        const client = await Client.create("test");
-        await expect(client.send("content", "title")).resolves.toMatchObject({
-            content: "content",
-            long: "",
-            title: "title",
-            user_id: "test"
-        });
-    });
-
-    test("client send 3", async () => {
-        const client = await Client.create("test");
-        await expect(client.send("content", "title", "long")).resolves.toMatchObject({
-            content: "content",
-            long: "long",
-            title: "title",
-            user_id: "test"
-        });
-    });
-
     test("client send with option", async () => {
         const client = await Client.create("test");
         await expect(client.send({

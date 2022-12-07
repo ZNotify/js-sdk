@@ -1,15 +1,23 @@
-import axios from "axios";
+import axios, {AxiosInstance} from "axios";
 import {stringify} from 'qs';
-import {Channels, ChannelType, ClientResponse, Message, MessageOptions} from "./entity";
+import {Channels, ChannelType, ClientResponse, Message, MessageOptions, Priority} from "./entity";
 import {ENDPOINT, isUUID} from "./utils";
 
 export class Client {
     private readonly endpoint: string;
     private readonly user_id: string;
+    private readonly session: AxiosInstance;
 
     private constructor(user_id: string, endpoint?: string) {
         this.endpoint = endpoint ? endpoint : ENDPOINT;
         this.user_id = user_id;
+        this.session = axios.create({
+            baseURL: this.endpoint,
+            timeout: 10000,
+            headers: {
+                "User-Agent": "znotify-js-sdk/" + require("../package.json").version
+            }
+        })
     }
 
     public static async create(user_id: string, endpoint?: string): Promise<Client> {
@@ -19,7 +27,7 @@ export class Client {
     }
 
     public async check(): Promise<void> {
-        const resp = await axios.get<ClientResponse<boolean>>(`${this.endpoint}/check`, {
+        const resp = await this.session.get<ClientResponse<boolean>>(`${this.endpoint}/check`, {
             params: {
                 user_id: this.user_id
             }
@@ -29,21 +37,17 @@ export class Client {
         }
     }
 
-    public async send(option: MessageOptions): Promise<Message>
-    public async send(content: string, title?: string, long?: string): Promise<Message>
-    public async send(contentOrOption: string | MessageOptions, title?: string | undefined, long?: string | undefined): Promise<Message> {
-        if (contentOrOption === undefined || contentOrOption === null || contentOrOption === "") {
+    public async send(option: MessageOptions): Promise<Message> {
+        if (option === undefined || option === null || option.content === undefined || option.content === null) {
             throw new Error("Content is required");
         }
-        if (!(typeof contentOrOption === "string")) {
-            return this.send(contentOrOption.content, contentOrOption.title, contentOrOption.long);
-        }
         const data = stringify({
-            title: title ? title : "Notification",
-            content: contentOrOption,
-            long: long ? long : ""
+            title: option.title ?? "Notification",
+            content: option.content,
+            long: option.long ?? "",
+            priority: option.priority ?? Priority.Normal
         })
-        const resp = await axios.post<ClientResponse<Message | string>>(`${this.endpoint}/${this.user_id}/send`, data, {
+        const resp = await this.session.post<ClientResponse<Message | string>>(`${this.endpoint}/${this.user_id}/send`, data, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
@@ -56,7 +60,7 @@ export class Client {
     }
 
     public async delete(id: string): Promise<void> {
-        await axios.delete(`${this.endpoint}/${this.user_id}/${id}`)
+        await this.session.delete(`${this.endpoint}/${this.user_id}/${id}`)
     }
 
     public async register(channel: ChannelType, token: string, deviceID: string): Promise<void> {
@@ -72,7 +76,7 @@ export class Client {
             channel: channel,
             token: token,
         })
-        const resp = await axios.put<ClientResponse<boolean | string>>(`${this.endpoint}/${this.user_id}/token/${deviceID}`, data, {
+        const resp = await this.session.put<ClientResponse<boolean | string>>(`${this.endpoint}/${this.user_id}/token/${deviceID}`, data, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             }

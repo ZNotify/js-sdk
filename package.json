@@ -1,6 +1,6 @@
 {
   "name": "znotify",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "sdk for znotify",
   "license": "Apache-2.0",
   "main": "lib/cjs/index.js",
