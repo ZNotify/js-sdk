@@ -10,14 +10,17 @@ export class Client {
     private readonly session: AxiosInstance;
 
     private constructor(user_id: string, endpoint?: string) {
+        const headers: Record<string, string> = {}
+        if (typeof window === 'undefined') {
+            headers["User-Agent"] = "znotify-js-sdk/" + version
+        }
+
         this.endpoint = endpoint ? endpoint : ENDPOINT;
         this.user_id = user_id;
         this.session = axios.create({
             baseURL: this.endpoint,
             timeout: 10000,
-            headers: {
-                "User-Agent": "znotify-js-sdk/" + version
-            }
+            headers
         })
     }
 
