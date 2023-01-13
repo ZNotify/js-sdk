@@ -1,57 +1,52 @@
-import axios, {AxiosInstance} from "axios";
-import {stringify} from 'qs';
-import {Channels, ChannelType, ClientResponse, Message, MessageOptions, Priority} from "./entity";
-import {ENDPOINT, isUUID} from "./utils";
+import {argument, body, ENDPOINT, isUUID, response} from "./utils";
 import {version} from "../package.json";
+import {definitions} from "./schema";
+import axios, {AxiosInstance} from "axios";
+import {stringify} from "qs"
 
 export class Client {
-    private readonly endpoint: string;
-    private readonly user_id: string;
-    private readonly session: AxiosInstance;
+    private readonly user_secret: string;
+    private readonly session: AxiosInstance
 
     private constructor(user_id: string, endpoint?: string) {
         const headers: Record<string, string> = {}
         if (typeof window === 'undefined') {
             headers["User-Agent"] = "znotify-js-sdk/" + version
         }
-
-        this.endpoint = endpoint ? endpoint : ENDPOINT;
-        this.user_id = user_id;
+        this.user_secret = user_id;
         this.session = axios.create({
-            baseURL: this.endpoint,
+            baseURL: endpoint ?? ENDPOINT,
+            headers: headers,
             timeout: 10000,
-            headers
         })
     }
 
-    public static async create(user_id: string, endpoint?: string): Promise<Client> {
-        const client = new Client(user_id, endpoint);
+    public static async create(user_secret: string, endpoint?: string): Promise<Client> {
+        const client = new Client(user_secret, endpoint);
         await client.check()
         return client;
     }
 
-    public async check(): Promise<void> {
-        const resp = await this.session.get<ClientResponse<boolean>>(`${this.endpoint}/check`, {
+    private async check(): Promise<void> {
+        const resp = await this.session.get("/check", {
             params: {
-                user_id: this.user_id
+                user_secret: this.user_secret
             }
         })
-        if (!(resp.data.body)) {
-            throw new Error("User ID not valid");
+        if (resp.data.body === false) {
+            throw new Error("User secret is not valid");
         }
     }
 
-    public async send(option: MessageOptions): Promise<Message> {
-        if (option === undefined || option === null || option.content === undefined || option.content === null) {
-            throw new Error("Content is required");
-        }
+    public async send(option: argument<"send.send">): Promise<body<"send.send">> {
         const data = stringify({
             title: option.title ?? "Notification",
-            content: option.content,
+            content: option.content ?? "",
+            priority: option.priority ?? "normal",
             long: option.long ?? "",
-            priority: option.priority ?? Priority.Normal
         })
-        const resp = await this.session.post<ClientResponse<Message | string>>(`${this.endpoint}/${this.user_id}/send`, data, {
+
+        const resp = await this.session.post<response<"send.send">>(`/${this.user_secret}/send`, data, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
@@ -59,28 +54,30 @@ export class Client {
         if (resp.data.code !== 200 || resp.status !== 200) {
             throw new Error(resp.data.body as string);
         }
-
-        return resp.data.body as Message;
+        return resp.data.body;
     }
 
-    public async delete(id: string): Promise<void> {
-        await this.session.delete(`${this.endpoint}/${this.user_id}/${id}`)
+    public async deleteDevice(deviceID: string): Promise<body<"device.delete">> {
+        const resp = await this.session.delete<response<"device.delete">>(`/${this.user_secret}/device/${deviceID}`)
+        if (resp.data.code !== 200 || resp.status !== 200) {
+            throw new Error(resp.data.body as string);
+        }
+        return resp.data.body;
     }
 
-    public async register(channel: ChannelType, token: string, deviceID: string): Promise<void> {
-        if (!isUUID(deviceID)) {
+
+    public async createDevice(channel: definitions["enum.Sender"], device_id: string, token: string, device_name: string = "", device_meta: string = ""): Promise<boolean> {
+        if (!isUUID(device_id)) {
             throw new Error("Device ID not valid, should be a UUID");
         }
-
-        if (!(channel in Channels)) {
-            throw new Error(`Channel ${channel} is not valid`);
-        }
-
         const data = stringify({
             channel: channel,
             token: token,
-        })
-        const resp = await this.session.put<ClientResponse<boolean | string>>(`${this.endpoint}/${this.user_id}/token/${deviceID}`, data, {
+            device_meta: device_meta,
+            device_name: device_name,
+            device_id: device_id,
+        } as argument<"device.create">)
+        const resp = await this.session.put<response<"device.create">>(`/${this.user_secret}/device/${device_id}`, data, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
@@ -88,5 +85,6 @@ export class Client {
         if (resp.data.code !== 200 || resp.status !== 200) {
             throw new Error(resp.data.body as string);
         }
+        return resp.data.body as boolean;
     }
 }

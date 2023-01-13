@@ -1,4 +1,4 @@
-import {Channels, type ChannelType, Client} from "../src";
+import {Client} from "../src";
 
 describe("Client Test", () => {
     test("client create", async () => {
@@ -6,7 +6,7 @@ describe("Client Test", () => {
     });
 
     test("client create failed", async () => {
-        await expect(Client.create("error")).rejects.toThrowError("User ID not valid");
+        await expect(Client.create("error")).rejects.toThrowError("User secret is not valid");
     });
 
     test("client send with option", async () => {
@@ -19,16 +19,15 @@ describe("Client Test", () => {
             content: "content",
             long: "long",
             title: "title",
-            user_id: "test"
         });
     });
 
-    test("client register", async () => {
+    test("device", async () => {
         const client = await Client.create("test");
         const uuid = "b366312b-fb94-4f13-b9f0-3788ef67e58b";
 
-        await expect(client.register(<ChannelType>"tt", "tt", uuid)).rejects.toThrowError("Channel tt is not valid");
-        await expect(client.register(Channels.WebPush, "tt", uuid)).resolves.toBeUndefined();
-        await expect(client.register(Channels.WebPush, "tt", "tt")).rejects.toThrowError("Device ID not valid, should be a UUID");
+        await expect(client.createDevice("WebPush", uuid, "tt")).resolves.toBe(true);
+        await expect(client.deleteDevice(uuid)).resolves.toBe(true);
+        await expect(client.createDevice("WebPush", "tt", "tt")).rejects.toThrowError("Device ID not valid, should be a UUID");
     })
 })
