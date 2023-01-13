@@ -4183,9 +4183,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openapi-typescript@npm:5.4.0":
-  version: 5.4.0
-  resolution: "openapi-typescript@npm:5.4.0"
+"openapi-typescript@npm:5.4.1":
+  version: 5.4.1
+  resolution: "openapi-typescript@npm:5.4.1"
   dependencies:
     js-yaml: ^4.1.0
     mime: ^3.0.0
@@ -4195,7 +4195,7 @@ __metadata:
     yargs-parser: ^21.0.1
   bin:
     openapi-typescript: bin/cli.js
-  checksum: d16aa4d5eb2e86d30209b2bec1dfc60687ad71c2a291e05c74a858769e17cf754f5bf6eff3623a5e32c7d7e80e97a7d7236471ffe71070cdcec9943b45aa654f
+  checksum: ab0e7613a478fcfa675887e50ff00fd6403ad6313357944408c11b420c08bbfa2bb58bff66c4e9a8c5670c79fe1a8d2f4ee85beceb004e72c529a97019b57c20
   languageName: node
   linkType: hard
 
@@ -5342,7 +5342,7 @@ __metadata:
     esbuild: ^0.16.1
     jest: 29.3.1
     npm-run-all: 4.1.5
-    openapi-typescript: 5.4.0
+    openapi-typescript: 5.4.1
     qs: ^6.11.0
     rimraf: 3.0.2
     rollup: ^3.6.0
