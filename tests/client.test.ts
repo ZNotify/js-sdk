@@ -22,7 +22,15 @@ describe("Client Test", () => {
         });
     });
 
-    test("device", async () => {
+    test("delete message", async () => {
+        const client = await Client.create("test");
+        const msg = await client.send({
+            content: "content",
+        })
+        await expect(client.deleteMessage(msg.id!)).resolves.toBe(true);
+    })
+
+    test("device create and delete", async () => {
         const client = await Client.create("test");
         const uuid = "b366312b-fb94-4f13-b9f0-3788ef67e58b";
 

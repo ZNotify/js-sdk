@@ -38,7 +38,7 @@ export class Client {
         }
     }
 
-    public async send(option: argument<"send.send">): Promise<body<"send.send">> {
+    public async send(option: argument<"sendMessage">): Promise<body<"sendMessage">> {
         const data = stringify({
             title: option.title ?? "Notification",
             content: option.content ?? "",
@@ -46,7 +46,7 @@ export class Client {
             long: option.long ?? "",
         })
 
-        const resp = await this.session.post<response<"send.send">>(`/${this.user_secret}/send`, data, {
+        const resp = await this.session.post<response<"sendMessage">>(`/${this.user_secret}/send`, data, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
@@ -54,19 +54,26 @@ export class Client {
         if (resp.data.code !== 200 || resp.status !== 200) {
             throw new Error(resp.data.body as string);
         }
-        return resp.data.body;
+        return resp.data.body as body<"sendMessage">;
     }
 
-    public async deleteDevice(deviceID: string): Promise<body<"device.delete">> {
-        const resp = await this.session.delete<response<"device.delete">>(`/${this.user_secret}/device/${deviceID}`)
+    public async deleteMessage(messageID: string): Promise<body<"deleteMessageById">> {
+        const resp = await this.session.delete<response<"deleteMessageById">>(`/${this.user_secret}/message/${messageID}`)
         if (resp.data.code !== 200 || resp.status !== 200) {
             throw new Error(resp.data.body as string);
         }
-        return resp.data.body;
+        return resp.data.body as body<"deleteMessageById">;
     }
 
+    public async deleteDevice(deviceID: string): Promise<body<"deleteDevice">> {
+        const resp = await this.session.delete<response<"deleteDevice">>(`/${this.user_secret}/device/${deviceID}`)
+        if (resp.data.code !== 200 || resp.status !== 200) {
+            throw new Error(resp.data.body as string);
+        }
+        return resp.data.body as body<"deleteDevice">;
+    }
 
-    public async createDevice(channel: definitions["enum.Sender"], device_id: string, token: string, device_name: string = "", device_meta: string = ""): Promise<boolean> {
+    public async createDevice(channel: definitions["enum.Sender"], device_id: string, token: string, device_name: string = "", device_meta: string = ""): Promise<body<"createDevice">> {
         if (!isUUID(device_id)) {
             throw new Error("Device ID not valid, should be a UUID");
         }
@@ -76,8 +83,8 @@ export class Client {
             device_meta: device_meta,
             device_name: device_name,
             device_id: device_id,
-        } as argument<"device.create">)
-        const resp = await this.session.put<response<"device.create">>(`/${this.user_secret}/device/${device_id}`, data, {
+        } as argument<"createDevice">)
+        const resp = await this.session.put<response<"createDevice">>(`/${this.user_secret}/device/${device_id}`, data, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
@@ -85,6 +92,6 @@ export class Client {
         if (resp.data.code !== 200 || resp.status !== 200) {
             throw new Error(resp.data.body as string);
         }
-        return resp.data.body as boolean;
+        return resp.data.body as body<"createDevice">;
     }
 }

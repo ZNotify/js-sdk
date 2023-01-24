@@ -1,6 +1,6 @@
 {
   "name": "znotify",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "sdk for znotify",
   "license": "Apache-2.0",
   "main": "dist/znotify.js",

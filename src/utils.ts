@@ -33,4 +33,6 @@ export type argument<T extends operationWithParameterIndex> = removeUserSecret<m
 type successResponse<T extends operationWithValidResponseIndex> = operations[T]["responses"][200]["schema"]
 type errorResponse = definitions["types.BadRequestResponse"] | definitions["types.UnauthorizedResponse"] | definitions["types.NotFoundResponse"]
 export type response<T extends operationWithValidResponseIndex> = successResponse<T> | errorResponse
-export type body<T extends operationWithValidResponseIndex> = response<T>["body"]
+
+export type body<T extends operationWithValidResponseIndex> = NonNullable<Exclude<successResponse<T>, string>["body"]>
+

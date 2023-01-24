@@ -6,69 +6,51 @@
 export interface paths {
   "/": {
     /** Provide UI */
-    get: {
-      responses: {
-        /** html */
-        200: {
-          schema: string;
-        };
-      };
-    };
+    get: operations["webIndex"];
   };
   "/alive": {
     /** If the server is alive */
-    get: operations["misc.alive"];
+    get: operations["alive"];
   };
   "/check": {
-    get: operations["user.check"];
+    get: operations["checkUserSecret"];
   };
   "/docs": {
-    get: {
-      responses: {
-        /** Moved Permanently */
-        301: {
-          schema: string;
-        };
-      };
-    };
+    get: operations["docRedirect"];
   };
   "/login": {
-    get: operations["user.login"];
+    get: operations["userLogin"];
   };
   "/login/github": {
-    get: operations["user.github"];
+    get: operations["githubOAuthCallback"];
   };
   "/{user_secret}": {
     /** Send notification to user_id */
-    put: operations["send.short"];
-    /** Send notification to user_id */
-    post: operations["send.short"];
+    post: operations["sendMessageLite"];
   };
   "/{user_secret}/device/{device_id}": {
     /** Create or update device information */
-    put: operations["device.create"];
+    put: operations["createDevice"];
     /** Delete device with device_id */
-    delete: operations["device.delete"];
+    delete: operations["deleteDevice"];
   };
   "/{user_secret}/devices": {
     /** Delete device with device_id */
-    get: operations["user.devices"];
+    get: operations["getDevicesByUserSecret"];
   };
   "/{user_secret}/message/{id}": {
     /** Get message record detail of a message */
-    get: operations["record.get"];
+    get: operations["getMessageById"];
     /** Delete message record with id */
-    delete: operations["record.delete"];
+    delete: operations["deleteMessageById"];
   };
   "/{user_secret}/messages": {
     /** Get messages of user with pagination */
-    get: operations["user.messages"];
+    get: operations["getMessagesByUserSecret"];
   };
   "/{user_secret}/send": {
     /** Send notification to user_id */
-    put: operations["send.send"];
-    /** Send notification to user_id */
-    post: operations["send.send"];
+    post: operations["sendMessage"];
   };
 }
 
@@ -129,8 +111,17 @@ export interface definitions {
 }
 
 export interface operations {
+  /** Provide UI */
+  webIndex: {
+    responses: {
+      /** html */
+      200: {
+        schema: string;
+      };
+    };
+  };
   /** If the server is alive */
-  "misc.alive": {
+  alive: {
     responses: {
       /** No Content */
       204: {
@@ -138,7 +129,7 @@ export interface operations {
       };
     };
   };
-  "user.check": {
+  checkUserSecret: {
     parameters: {
       query: {
         /** Secret of user */
@@ -152,13 +143,21 @@ export interface operations {
       };
     };
   };
-  "user.login": {
+  docRedirect: {
+    responses: {
+      /** Moved Permanently */
+      301: {
+        schema: string;
+      };
+    };
+  };
+  userLogin: {
     responses: {
       /** Temporary Redirect */
       307: never;
     };
   };
-  "user.github": {
+  githubOAuthCallback: {
     parameters: {
       query: {
         /** should always be 'no_need_to_set_state' */
@@ -181,7 +180,7 @@ export interface operations {
     };
   };
   /** Send notification to user_id */
-  "send.short": {
+  sendMessageLite: {
     parameters: {
       path: {
         /** Secret of user */
@@ -208,7 +207,7 @@ export interface operations {
     };
   };
   /** Create or update device information */
-  "device.create": {
+  createDevice: {
     parameters: {
       path: {
         /** Secret of user */
@@ -243,7 +242,7 @@ export interface operations {
     };
   };
   /** Delete device with device_id */
-  "device.delete": {
+  deleteDevice: {
     parameters: {
       path: {
         /** Secret of user */
@@ -260,7 +259,7 @@ export interface operations {
     };
   };
   /** Delete device with device_id */
-  "user.devices": {
+  getDevicesByUserSecret: {
     parameters: {
       path: {
         /** Secret of user */
@@ -275,7 +274,7 @@ export interface operations {
     };
   };
   /** Get message record detail of a message */
-  "record.get": {
+  getMessageById: {
     parameters: {
       path: {
         /** Secret of user */
@@ -304,7 +303,7 @@ export interface operations {
     };
   };
   /** Delete message record with id */
-  "record.delete": {
+  deleteMessageById: {
     parameters: {
       path: {
         /** Secret of user */
@@ -325,7 +324,7 @@ export interface operations {
     };
   };
   /** Get messages of user with pagination */
-  "user.messages": {
+  getMessagesByUserSecret: {
     parameters: {
       path: {
         /** Secret of user */
@@ -350,7 +349,7 @@ export interface operations {
     };
   };
   /** Send notification to user_id */
-  "send.send": {
+  sendMessage: {
     parameters: {
       path: {
         /** Secret of user */
