@@ -42,7 +42,7 @@
     "rimraf": "5.0.1",
     "rollup": "^3.6.0",
     "rollup-plugin-dts": "^6.0.0",
-    "rollup-plugin-esbuild": "^5.0.0",
+    "rollup-plugin-esbuild": "^6.0.0",
     "ts-jest": "29.1.1",
     "tsx": "^3.12.2",
     "typescript": "5.2.2"
