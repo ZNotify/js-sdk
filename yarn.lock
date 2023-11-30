@@ -1502,10 +1502,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.17.11":
-  version: 18.17.11
-  resolution: "@types/node@npm:18.17.11"
-  checksum: c31d9f4a6f7c5c413b6548ded0fab046571832718361c5cda325960f32d6b386dd0a7fa9228911111fee54c180d09df82a622efdabdbef89fa9e1923891892bc
+"@types/node@npm:18.18.14":
+  version: 18.18.14
+  resolution: "@types/node@npm:18.18.14"
+  dependencies:
+    undici-types: ~5.26.4
+  checksum: 3a77e6819e50fd22196b08d542433e1513c855f4993a200bc0e7be076445c61ce2a9e5f7f202f060c46130b2b2f98643461fb7999f874475e6bb322c4534c580
   languageName: node
   linkType: hard
 
@@ -5443,6 +5445,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"undici-types@npm:~5.26.4":
+  version: 5.26.5
+  resolution: "undici-types@npm:5.26.5"
+  checksum: 3192ef6f3fd5df652f2dc1cd782b49d6ff14dc98e5dced492aa8a8c65425227da5da6aafe22523c67f035a272c599bb89cfe803c1db6311e44bed3042fc25487
+  languageName: node
+  linkType: hard
+
 "undici@npm:^5.4.0":
   version: 5.19.1
   resolution: "undici@npm:5.19.1"
@@ -5653,7 +5662,7 @@ __metadata:
   dependencies:
     "@rollup/plugin-json": ^6.0.0
     "@types/jest": 29.5.10
-    "@types/node": 18.17.11
+    "@types/node": 18.18.14
     "@types/qs": 6.9.10
     axios: ^1.2.2
     esbuild: ^0.19.0
