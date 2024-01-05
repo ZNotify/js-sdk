@@ -1710,12 +1710,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.18.14":
-  version: 18.18.14
-  resolution: "@types/node@npm:18.18.14"
+"@types/node@npm:20.10.6":
+  version: 20.10.6
+  resolution: "@types/node@npm:20.10.6"
   dependencies:
     undici-types: ~5.26.4
-  checksum: 3a77e6819e50fd22196b08d542433e1513c855f4993a200bc0e7be076445c61ce2a9e5f7f202f060c46130b2b2f98643461fb7999f874475e6bb322c4534c580
+  checksum: ada40e4ccbda3697dca88f8d13f4c996c493be6fbc15f5f5d3b91096d56bd700786a2c148a92a2b4c5d1f133379e63f754a786b3aebfc6a7d09fc7ea16dc017b
   languageName: node
   linkType: hard
 
@@ -5754,7 +5754,7 @@ __metadata:
   dependencies:
     "@rollup/plugin-json": ^6.0.0
     "@types/jest": 29.5.11
-    "@types/node": 18.18.14
+    "@types/node": 20.10.6
     "@types/qs": 6.9.11
     axios: ^1.2.2
     esbuild: ^0.19.0
