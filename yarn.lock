@@ -3529,19 +3529,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openapi-typescript@npm:6.7.3":
-  version: 6.7.3
-  resolution: "openapi-typescript@npm:6.7.3"
+"openapi-typescript@npm:6.7.6":
+  version: 6.7.6
+  resolution: "openapi-typescript@npm:6.7.6"
   dependencies:
     ansi-colors: "npm:^4.1.3"
     fast-glob: "npm:^3.3.2"
     js-yaml: "npm:^4.1.0"
     supports-color: "npm:^9.4.0"
-    undici: "npm:^5.28.2"
+    undici: "npm:^5.28.4"
     yargs-parser: "npm:^21.1.1"
   bin:
     openapi-typescript: bin/cli.js
-  checksum: 7fcb6fa31fa868e82d62317aa66c10bb96b400a06917978f4282ddc4b89b0812fbe4dabae880c592d6f5fa1abbff87917929dd7ad0761e157812f680ea24183b
+  checksum: 43b5a64cca2a53a0adc7f8763152db67c56369f06bdb5063d0c7aa3d4d53e76f54131cdbaee7e5e30404da15784b92ae3f814389f1f71428bcaa4ffcfa1c5197
   languageName: node
   linkType: hard
 
@@ -4426,7 +4426,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^5.28.2":
+"undici@npm:^5.28.4":
   version: 5.28.4
   resolution: "undici@npm:5.28.4"
   dependencies:
@@ -4620,7 +4620,7 @@ __metadata:
     esbuild: "npm:^0.19.0"
     jest: "npm:29.7.0"
     npm-run-all2: "npm:5.0.0"
-    openapi-typescript: "npm:6.7.3"
+    openapi-typescript: "npm:6.7.6"
     qs: "npm:^6.11.0"
     rimraf: "npm:5.0.5"
     rollup: "npm:^4.0.0"
