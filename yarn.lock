@@ -1262,10 +1262,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/qs@npm:6.9.15":
-  version: 6.9.15
-  resolution: "@types/qs@npm:6.9.15"
-  checksum: 10c0/49c5ff75ca3adb18a1939310042d273c9fc55920861bd8e5100c8a923b3cda90d759e1a95e18334092da1c8f7b820084687770c83a1ccef04fb2c6908117c823
+"@types/qs@npm:6.9.17":
+  version: 6.9.17
+  resolution: "@types/qs@npm:6.9.17"
+  checksum: 10c0/a183fa0b3464267f8f421e2d66d960815080e8aab12b9aadab60479ba84183b1cdba8f4eff3c06f76675a8e42fe6a3b1313ea76c74f2885c3e25d32499c17d1b
   languageName: node
   linkType: hard
 
@@ -4828,7 +4828,7 @@ __metadata:
     "@rollup/plugin-json": "npm:^6.0.0"
     "@types/jest": "npm:29.5.12"
     "@types/node": "npm:20.14.15"
-    "@types/qs": "npm:6.9.15"
+    "@types/qs": "npm:6.9.17"
     axios: "npm:^1.2.2"
     esbuild: "npm:^0.23.0"
     jest: "npm:29.7.0"
