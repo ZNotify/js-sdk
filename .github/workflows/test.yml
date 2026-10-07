@@ -6,7 +6,12 @@ on:
   pull_request:
     branches: [ master ]
   workflow_call:
-
+    inputs:
+      require-current-artifact:
+        description: Require the server artifact from the current workflow run
+        required: false
+        type: boolean
+        default: false
 jobs:
   test:
     strategy:
@@ -20,7 +25,9 @@ jobs:
         with:
           repository: 'ZNotify/js-sdk'
 
-      - uses: ZNotify/test-action@master
+      - uses: ZNotify/test-server-action@master
+        with:
+          require-current-artifact: ${{ inputs.require-current-artifact || false }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
@@ -33,3 +40,4 @@ jobs:
       - run: yarn coverage
 
       - run: yarn build
+
